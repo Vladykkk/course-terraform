@@ -23,6 +23,7 @@ module "lambdas" {
   source             = "./modules/lambda"
   context            = module.label.context
   table_authors_name = module.table_authors.id
+  table_courses_name = module.table_courses.id
 }
 
 resource "aws_s3_bucket" "this" {
