@@ -6,14 +6,7 @@ module "label" {
   stage       = var.stage
   environment = var.environment
   label_order = var.label_order
-  #   name       = "bastion"
-  #   attributes = ["public"]
-  delimiter = "-"
-
-  #   tags = {
-  #     "BusinessUnit" = "XYZ",
-  #     "Snapshot"     = "true"
-  #   }
+  delimiter   = "-"
 }
 
 module "label_s3" {

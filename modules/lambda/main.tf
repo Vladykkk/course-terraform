@@ -52,14 +52,17 @@ module "label_delete_course" {
   name    = "delete-course"
 }
 
-module "lambda_get_all_authors" {
+module "lambda_function_authors" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.2.3"
 
   function_name = module.label_get_all_authors.id
-  description   = "Return all authors"
+  description   = "Get all authors"
   handler       = "index.handler"
   runtime       = "nodejs16.x"
+  create_role   = false
+
+  lambda_role = var.role_get_all_authors_arn
 
   source_path = "${path.module}/src/get_all_authors"
 
@@ -70,14 +73,17 @@ module "lambda_get_all_authors" {
   tags = module.label_get_all_authors.tags
 }
 
-module "lambda_get_all_courses" {
+module "lambda_function_courses" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.2.3"
 
   function_name = module.label_get_all_courses.id
-  description   = "Return all courses"
+  description   = "Get all courses"
   handler       = "index.handler"
   runtime       = "nodejs16.x"
+  create_role   = false
+
+  lambda_role = var.role_get_all_courses_arn
 
   source_path = "${path.module}/src/get_all_courses"
 
