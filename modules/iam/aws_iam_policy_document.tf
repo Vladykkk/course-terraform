@@ -1,4 +1,4 @@
-module "iam_policy" {
+module "iam_policy_authors" {
   source      = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version     = "v5.37.2"
   name        = module.label_get_all_authors.id
