@@ -20,6 +20,14 @@ module "label_get_all_courses" {
   name    = "get-all-courses"
 }
 
+module "label_get_course" {
+  source  = "cloudposse/label/null"
+  version = "0.25.0"
+
+  context = module.label.context
+  name    = "get-course"
+}
+
 module "label_save_course" {
   source  = "cloudposse/label/null"
   version = "0.25.0"
@@ -34,14 +42,6 @@ module "label_update_course" {
 
   context = module.label.context
   name    = "update-course"
-}
-
-module "label_get_course" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
-
-  context = module.label.context
-  name    = "get-course"
 }
 
 module "label_delete_course" {
@@ -94,6 +94,27 @@ module "lambda_function_courses" {
   tags = module.label_get_all_courses.tags
 }
 
+module "lambda_get_course" {
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "7.2.3"
+
+  function_name = module.label_get_course.id
+  description   = "Get course"
+  handler       = "index.handler"
+  runtime       = "nodejs16.x"
+  create_role   = false
+
+  lambda_role = var.role_get_course_arn
+
+  source_path = "${path.module}/src/get_course"
+
+  environment_variables = {
+    TABLE_NAME = var.table_courses_name
+  }
+
+  tags = module.label_get_course.tags
+}
+
 module "lambda_save_course" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.2.3"
@@ -102,6 +123,9 @@ module "lambda_save_course" {
   description   = "Save course"
   handler       = "index.handler"
   runtime       = "nodejs16.x"
+  create_role   = false
+
+  lambda_role = var.role_save_course_arn
 
   source_path = "${path.module}/src/save_course"
 
@@ -109,7 +133,7 @@ module "lambda_save_course" {
     TABLE_NAME = var.table_courses_name
   }
 
-  tags = module.label_get_all_courses.tags
+  tags = module.label_update_course.tags
 }
 
 module "lambda_update_course" {
@@ -120,6 +144,9 @@ module "lambda_update_course" {
   description   = "Update course"
   handler       = "index.handler"
   runtime       = "nodejs16.x"
+  create_role   = false
+
+  lambda_role = var.role_update_course_arn
 
   source_path = "${path.module}/src/update_course"
 
@@ -127,25 +154,7 @@ module "lambda_update_course" {
     TABLE_NAME = var.table_courses_name
   }
 
-  tags = module.label_get_all_courses.tags
-}
-
-module "lambda_get_course" {
-  source  = "terraform-aws-modules/lambda/aws"
-  version = "7.2.3"
-
-  function_name = module.label_get_course.id
-  description   = "Get course"
-  handler       = "index.handler"
-  runtime       = "nodejs16.x"
-
-  source_path = "${path.module}/src/get_course"
-
-  environment_variables = {
-    TABLE_NAME = var.table_courses_name
-  }
-
-  tags = module.label_get_all_courses.tags
+  tags = module.label_update_course.tags
 }
 
 module "lambda_delete_course" {
@@ -156,6 +165,9 @@ module "lambda_delete_course" {
   description   = "Delete course"
   handler       = "index.handler"
   runtime       = "nodejs16.x"
+  create_role   = false
+
+  lambda_role = var.role_delete_course_arn
 
   source_path = "${path.module}/src/delete_course"
 
@@ -163,5 +175,5 @@ module "lambda_delete_course" {
     TABLE_NAME = var.table_courses_name
   }
 
-  tags = module.label_get_all_courses.tags
+  tags = module.label_delete_course.tags
 }

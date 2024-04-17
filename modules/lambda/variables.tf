@@ -13,3 +13,19 @@ variable "table_courses_name" {
 variable "role_get_all_courses_arn" {
   type = string
 }
+
+variable "role_get_course_arn" {
+  type = string
+}
+
+variable "role_save_course_arn" {
+  type = string
+}
+
+variable "role_update_course_arn" {
+  type = string
+}
+
+variable "role_delete_course_arn" {
+  type = string
+}
