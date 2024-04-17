@@ -128,7 +128,7 @@ data "aws_iam_policy_document" "get_course" {
 data "aws_iam_policy_document" "save_course" {
   statement {
     actions = [
-      "dynamodb:SaveItem",
+      "dynamodb:PutItem",
     ]
 
     resources = [var.table_courses_arn]

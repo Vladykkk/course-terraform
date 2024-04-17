@@ -18,8 +18,8 @@ module "lambdas" {
   source                   = "./modules/lambda"
   context                  = module.label.context
   table_authors_name       = module.table_authors.id
-  role_get_all_authors_arn = module.iam.role_get_all_authors_arn
   table_courses_name       = module.table_courses.id
+  role_get_all_authors_arn = module.iam.role_get_all_authors_arn
   role_get_all_courses_arn = module.iam.role_get_all_courses_arn
   role_get_course_arn      = module.iam.role_get_course_arn
   role_save_course_arn     = module.iam.role_save_course_arn
@@ -31,8 +31,8 @@ module "iam" {
   source                                   = "./modules/iam"
   context                                  = module.label.context
   table_authors_arn                        = module.table_authors.arn
-  cloudwatch_log_group_get_all_authors_arn = module.cloudwatch.cloudwatch_log_group_get_all_authors_arn
   table_courses_arn                        = module.table_courses.arn
+  cloudwatch_log_group_get_all_authors_arn = module.cloudwatch.cloudwatch_log_group_get_all_authors_arn
   cloudwatch_log_group_get_all_courses_arn = module.cloudwatch.cloudwatch_log_group_get_all_courses_arn
   cloudwatch_log_group_get_course_arn      = module.cloudwatch.cloudwatch_log_group_get_course_arn
   cloudwatch_log_group_save_course_arn     = module.cloudwatch.cloudwatch_log_group_save_course_arn
