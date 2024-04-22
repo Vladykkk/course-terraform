@@ -52,9 +52,10 @@ module "label_delete_course" {
   name    = "delete-course"
 }
 
-module "lambda_function_authors" {
+module "lambda_get_all_authors" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.2.3"
+  publish = true
 
   function_name = module.label_get_all_authors.id
   description   = "Get all authors"
@@ -70,12 +71,20 @@ module "lambda_function_authors" {
     TABLE_NAME = var.table_authors_name
   }
 
+  allowed_triggers = {
+    ApiGatewayAny = {
+      service    = "apigateway"
+      source_arn = "${var.aws_api_gateway_rest_api_execution_arn}/*/*/*"
+    }
+  }
+
   tags = module.label_get_all_authors.tags
 }
 
-module "lambda_function_courses" {
+module "lambda_get_all_courses" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.2.3"
+  publish = true
 
   function_name = module.label_get_all_courses.id
   description   = "Get all courses"
@@ -91,12 +100,20 @@ module "lambda_function_courses" {
     TABLE_NAME = var.table_courses_name
   }
 
+  allowed_triggers = {
+    ApiGatewayAny = {
+      service    = "apigateway"
+      source_arn = "${var.aws_api_gateway_rest_api_execution_arn}/*/*/*"
+    }
+  }
+
   tags = module.label_get_all_courses.tags
 }
 
 module "lambda_get_course" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.2.3"
+  publish = true
 
   function_name = module.label_get_course.id
   description   = "Get course"
@@ -112,12 +129,20 @@ module "lambda_get_course" {
     TABLE_NAME = var.table_courses_name
   }
 
+  allowed_triggers = {
+    ApiGatewayAny = {
+      service    = "apigateway"
+      source_arn = "${var.aws_api_gateway_rest_api_execution_arn}/*/*/*"
+    }
+  }
+
   tags = module.label_get_course.tags
 }
 
 module "lambda_save_course" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.2.3"
+  publish = true
 
   function_name = module.label_save_course.id
   description   = "Save course"
@@ -133,12 +158,20 @@ module "lambda_save_course" {
     TABLE_NAME = var.table_courses_name
   }
 
+  allowed_triggers = {
+    ApiGatewayAny = {
+      service    = "apigateway"
+      source_arn = "${var.aws_api_gateway_rest_api_execution_arn}/*/*/*"
+    }
+  }
+
   tags = module.label_update_course.tags
 }
 
 module "lambda_update_course" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.2.3"
+  publish = true
 
   function_name = module.label_update_course.id
   description   = "Update course"
@@ -154,12 +187,20 @@ module "lambda_update_course" {
     TABLE_NAME = var.table_courses_name
   }
 
+  allowed_triggers = {
+    ApiGatewayAny = {
+      service    = "apigateway"
+      source_arn = "${var.aws_api_gateway_rest_api_execution_arn}/*/*/*"
+    }
+  }
+
   tags = module.label_update_course.tags
 }
 
 module "lambda_delete_course" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.2.3"
+  publish = true
 
   function_name = module.label_delete_course.id
   description   = "Delete course"
@@ -173,6 +214,13 @@ module "lambda_delete_course" {
 
   environment_variables = {
     TABLE_NAME = var.table_courses_name
+  }
+
+  allowed_triggers = {
+    ApiGatewayAny = {
+      service    = "apigateway"
+      source_arn = "${var.aws_api_gateway_rest_api_execution_arn}/*/*/*"
+    }
   }
 
   tags = module.label_delete_course.tags

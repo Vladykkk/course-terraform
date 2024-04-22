@@ -29,3 +29,7 @@ variable "role_update_course_arn" {
 variable "role_delete_course_arn" {
   type = string
 }
+
+variable "aws_api_gateway_rest_api_execution_arn" {
+  type = string
+}
