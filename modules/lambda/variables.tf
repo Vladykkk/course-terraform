@@ -2,13 +2,14 @@ variable "table_authors_name" {
   type = string
 }
 
+variable "table_courses_name" {
+  type = string
+}
+
 variable "role_get_all_authors_arn" {
   type = string
 }
 
-variable "table_courses_name" {
-  type = string
-}
 
 variable "role_get_all_courses_arn" {
   type = string
