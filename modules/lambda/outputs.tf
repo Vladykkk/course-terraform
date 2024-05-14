@@ -42,7 +42,7 @@ output "lambda_delete_course_invoke_arn" {
   value = module.lambda_delete_course.lambda_function_invoke_arn
 }
 
-output "lambda_delete_lambda_function_name" {
+output "lambda_delete_course_lambda_function_name" {
   value = module.lambda_delete_course.lambda_function_name
 }
 

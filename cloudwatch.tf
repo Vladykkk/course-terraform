@@ -9,6 +9,7 @@ module "metric_alarm" {
   threshold           = 1
   period              = 60
   unit                = "Count"
+  treat_missing_data  = "ignore"
 
   namespace   = "AWS/Lambda"
   metric_name = "Errors"
@@ -35,5 +36,5 @@ module "metric_alarm" {
     }
   }
 
-  alarm_actions = ["arn:aws:sns:eu-central-1:381492158761:dev-lpnu-rybak-notification"]
+  alarm_actions = [module.notify_slack.slack_topic_arn]
 }

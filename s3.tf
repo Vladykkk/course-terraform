@@ -15,7 +15,6 @@ module "front_application" {
 
 }
 
-
 resource "aws_s3_bucket_policy" "cloudfront_s3_bucket_policy" {
   bucket = module.front_application.s3_bucket_id
   policy = jsonencode({
