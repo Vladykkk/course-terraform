@@ -25,7 +25,13 @@ module "lambdas" {
   role_save_course_arn                   = module.iam.role_save_course_arn
   role_update_course_arn                 = module.iam.role_update_course_arn
   role_delete_course_arn                 = module.iam.role_delete_course_arn
-  aws_api_gateway_rest_api_execution_arn = aws_api_gateway_rest_api.this.execution_arn
+  aws_api_gateway_rest_api_execution_arn = aws_api_gateway_rest_api.rest_api.execution_arn
+  logging_log_group_get_all_authors      = module.cloudwatch.cloudwatch_log_group_get_all_authors_name
+  logging_log_group_get_all_courses      = module.cloudwatch.cloudwatch_log_group_get_all_courses_name
+  logging_log_group_get_course           = module.cloudwatch.cloudwatch_log_group_get_course_name
+  logging_log_group_save_course          = module.cloudwatch.cloudwatch_log_group_save_course_name
+  logging_log_group_update_course        = module.cloudwatch.cloudwatch_log_group_update_course_name
+  logging_log_group_delete_course        = module.cloudwatch.cloudwatch_log_group_delete_course_name
 }
 
 module "iam" {
